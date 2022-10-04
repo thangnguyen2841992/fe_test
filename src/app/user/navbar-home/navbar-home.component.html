@@ -1,0 +1,37 @@
+<section class="breadcrumb-osahan pt-5 pb-5 bg-dark position-relative text-center" id="nav-header">
+  <h1 id="text1" class="text-white">Từ Điển Nhật-Việt</h1>
+  <h6 id="text2" class="text-white-50">Ôn tập và học thêm tiếng nhật</h6>
+</section>
+<br>
+  <!--  Form tìm kiếm -->
+  <div class="container">
+    <div class="homepage-search-form">
+      <form [formGroup]="searchForm">
+      <div class="form-noborder">
+        <div class="form-row">
+
+          <div class="col-lg-3 col-md-3 col-sm-12 form-group">
+
+            <div class="location-dropdown">
+              <select  class="custom-select form-control-lg" formControlName="type">
+                <option *ngFor="let typeSearch of typeSearchs"  value="{{typeSearch.id}}">{{typeSearch.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-12 form-group">
+            <input type="text" placeholder="Tra cứu bất kỳ" id="q" formControlName="key"
+                   class="form-control form-control-lg">
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 form-group">
+            <button class="btn btn-primary btn-block btn-lg btn-gradient" (click)="searchByKey()"
+            >Tìm kiếm
+            </button>
+          </div>
+
+          </div>
+
+        </div>
+      </form>
+      </div>
+    </div>
+

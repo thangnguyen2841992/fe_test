@@ -1,0 +1,10 @@
+#book-link {
+  color: deepskyblue;
+  cursor: pointer;
+}
+.lesson-link:hover{
+    color: deeppink;
+}
+.lesson-link {
+  cursor: pointer;
+}

@@ -1,0 +1,144 @@
+<app-navbar-user id="app-navbar-customer"></app-navbar-user>
+<app-navbar-home></app-navbar-home>
+
+<section class="section pt-5 pb-5 products-listing">
+
+  <div class="container">
+    <div class="row d-none-m">
+      <div class="col-md-12">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <app-sidebar-user></app-sidebar-user>
+
+
+      </div>
+      <div class="col-md-9">
+        <div class="owl-carousel owl-carousel-category owl-theme list-cate-page mb-4">
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/1.png" alt="">
+                <h6>American</h6>
+                <p>156</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/2.png" alt="">
+                <h6>Pizza</h6>
+                <p>120</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/3.png" alt="">
+                <h6>Healthy</h6>
+                <p>130</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/4.png" alt="">
+                <h6>Vegetarian</h6>
+                <p>120</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/5.png" alt="">
+                <h6>Chinese</h6>
+                <p>111</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/6.png" alt="">
+                <h6>Hamburgers</h6>
+                <p>958</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/7.png" alt="">
+                <h6>Dessert</h6>
+                <p>56</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/8.png" alt="">
+                <h6>Chicken</h6>
+                <p>40</p>
+              </a>
+            </div>
+          </div>
+          <div class="item">
+            <div class="osahan-category-item">
+              <a href="#">
+                <img class="img-fluid" src="assets/customer-template/img/list/9.png" alt="">
+                <h6>Indian</h6>
+                <p>156</p>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mb-2">{{key}}</h3>
+        <div class="row">
+          <div class="col-md-4 col-sm-6 mb-4 pb-2" >
+            <table class="table" id="vocabulary-table">
+              <thead>
+              <tr>
+                <th scope="col">Stt</th>
+                <th scope="col" id="hiragana">Hiragana</th>
+                <th scope="col" id="kanji">Kanji</th>
+                <th scope="col" id="vietnamchina">Hán Việt</th>
+                <th scope="col" id="translation">Nghĩa</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let vocabulary of vocabularies, index as i">
+                <td>{{i+1}}</td>
+                <td>{{vocabulary.japanese}}</td>
+                <td>{{vocabulary.kanji}}</td>
+                <td>{{vocabulary.vietnameseChinese}}</td>
+                <td>{{vocabulary.translation}}</td>
+              </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-md-12 text-center load-more">
+            <button class="btn btn-success" type="button" (click)="loadMore()" *ngIf="!endOfPage">
+              <!--            <button class="btn btn-success" type="button" (click)="loadMore()">-->
+              <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              Xem thêm
+            </button>
+            <button class="btn btn-secondary" type="button" *ngIf="endOfPage" (click)="scrollBackToTop()">
+              Trở về đầu trang
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
