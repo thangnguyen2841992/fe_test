@@ -5,7 +5,6 @@ import {BookService} from '../../service/book/book.service';
 import {LessonService} from '../../service/lesson/lesson.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Question} from '../../model/question';
-import {$e} from 'codelyzer/angular/styles/chars';
 import {NotificationService} from '../../service/notification/notification.service';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -21,7 +20,11 @@ import {ExcerciseService} from '../../service/excercise/excercise.service';
 export class ExcerciseCreateComponent implements OnInit {
   books: Book[] = [];
   lessons: Lesson[] = [];
-  lessonDefault: Lesson;
+  lessonDefault: Lesson = {
+    id: 1,
+    name: '',
+    book: {}
+  };
   bookDefault: Book = {
     id: 1,
     name: '',
@@ -31,14 +34,14 @@ export class ExcerciseCreateComponent implements OnInit {
   currentUserId: number;
   vocabularyForm: FormGroup = new FormGroup({
     bookId: new FormControl(this.bookDefault.id, [Validators.required]),
-    lessonId: new FormControl(this.lessonDefault, [Validators.required]),
+    lessonId: new FormControl(this.lessonDefault.id, [Validators.required]),
     name: new FormControl('', [Validators.required]),
     caption: new FormControl('', [Validators.required]),
+    audioFile: new FormControl('')
   });
   question: string;
   answer: string;
   questions: Question[] = [];
-  selectedFile: File;
   audioLink: string;
   lessonId: number;
 
@@ -54,6 +57,7 @@ export class ExcerciseCreateComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBook();
+    this.getAllLessonOfBook();
   }
 
   getAllBook() {
@@ -75,18 +79,6 @@ export class ExcerciseCreateComponent implements OnInit {
     this.getAllLessonOfBook();
   }
 
-  getAllLessonOfBookDefault() {
-    return this.lessonService.getAllLessonOfBook(1).subscribe((data) => {
-      // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < data.length; i++) {
-        this.lessonDefault = {
-          id: data[0].id,
-          name: data[0].name,
-          book: data[0].book
-        };
-      }
-    });
-  }
 
   getQuestion($event) {
     this.question = $event.target.value;
@@ -108,39 +100,44 @@ export class ExcerciseCreateComponent implements OnInit {
     console.log(this.questions);
   }
 
-  changeFile($event) {
-    this.selectedFile = $event.target.files[0];
+  changeFile(event) {
+    if (event.target.files > 0) {
+      const file = event.target.files[0];
+      this.vocabularyForm.patchValue({
+        audioFile: file
+      });
+    }
   }
 
   createNewVocabulary() {
-    const audioFile = this.getCurrentDateTime() + this.selectedFile;
+    const audioFile = this.getCurrentDateTime() + this.vocabularyForm.get('audioFile');
     const fileRef = this.storage.ref(audioFile);
-    this.storage.upload(audioFile, this.selectedFile).snapshotChanges().pipe(
+    this.storage.upload(audioFile, this.vocabularyForm.get('audioFile')).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.audioLink = url;
-          console.log(this.audioLink);
+          const excerciseForm = {
+            name: this.vocabularyForm.value.name,
+
+            caption: this.vocabularyForm.value.caption,
+
+            audioFile: this.audioLink,
+
+            userId: this.currentUserId,
+
+            bookId: this.vocabularyForm.value.bookId,
+
+            lessonId: this.vocabularyForm.value.lessonId,
+
+            questions: this.questions
+          };
+          this.exerciseService.createNewQuestion(excerciseForm, this.currentUserId, this.bookId, this.lessonId).subscribe(() => {
+            this.notificationService.showSuccessMessage('Tạo bài tập thành công!');
+          });
         });
       })
     ).subscribe();
-    const excerciseForm = {
-      name: this.vocabularyForm.value.name,
 
-      caption: this.vocabularyForm.value.caption,
-
-      audioFile: this.audioLink,
-
-      userId: this.currentUserId,
-
-      bookId: this.vocabularyForm.value.bookId,
-
-      lessonId: this.vocabularyForm.value.lessonId,
-
-      questions: this.questions
-    };
-    this.exerciseService.createNewQuestion(excerciseForm, this.currentUserId, this.bookId, this.lessonId).subscribe(() => {
-      this.notificationService.showSuccessMessage('Tạo bài tập thành công!');
-    });
   }
 
   getCurrentDateTime(): string {

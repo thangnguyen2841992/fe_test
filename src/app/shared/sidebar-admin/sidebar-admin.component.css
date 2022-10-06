@@ -1,0 +1,6 @@
+.book-link  {
+  cursor: pointer;
+}
+.book-link :hover {
+  color: #0a0e14;
+}

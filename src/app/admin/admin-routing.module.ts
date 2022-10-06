@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {AddVocabularyComponent} from './add-vocabulary/add-vocabulary.component';
 import {ExcerciseCreateComponent} from './excercise-create/excercise-create.component';
+import {BookCreateComponent} from './book-create/book-create.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'exercise/create',
     component: ExcerciseCreateComponent
+  },
+  {
+    path: 'book/create',
+    component: BookCreateComponent
   }
 ];
 

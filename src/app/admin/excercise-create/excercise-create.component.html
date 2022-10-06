@@ -37,9 +37,8 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlInputAudio">File nghe</label>
-            <input type="file" class="form-control" id="exampleFormControlInputAudio" placeholder="Nhập file nghe" (change)="changeFile($event)">
+            <input type="file" class="form-control" id="exampleFormControlInputAudio" placeholder="Nhập file nghe" formControlName="audioFile" (change)="changeFile($event)">
           </div>
-
           <input type="submit" value="Thêm">
         </form>
         <div class="form-group">

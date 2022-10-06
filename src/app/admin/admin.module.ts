@@ -11,10 +11,11 @@ import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment.prod';
 import {AngularFireStorage} from '@angular/fire/storage';
+import { BookCreateComponent } from './book-create/book-create.component';
 
 
 @NgModule({
-  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent],
+  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent, BookCreateComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

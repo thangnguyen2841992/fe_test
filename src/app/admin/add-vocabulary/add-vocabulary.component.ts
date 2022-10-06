@@ -17,7 +17,11 @@ export class AddVocabularyComponent implements OnInit {
   books: Book[] = [];
   lessons: Lesson[] = [];
   bookId = 1;
-  lessonDefault: Lesson;
+  lessonDefault: Lesson = {
+    id: 1,
+    name: '',
+    book: {}
+  };
   bookDefault: Book = {
     id: 1,
     name: '',
@@ -26,7 +30,7 @@ export class AddVocabularyComponent implements OnInit {
   currentUserId: number;
   vocabularyForm: FormGroup = new FormGroup({
     bookId: new FormControl(this.bookDefault.id, [Validators.required]),
-    lessonId: new FormControl(this.lessonDefault, [Validators.required]),
+    lessonId: new FormControl(this.lessonDefault.id, [Validators.required]),
     spell: new FormControl('', [Validators.required]),
     hiragana: new FormControl('', [Validators.required]),
     kanji: new FormControl('', [Validators.required]),
