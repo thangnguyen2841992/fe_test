@@ -13,7 +13,8 @@ import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin.component';
     exports: [
         NavbarUserComponent,
         FooterComponent,
-        SidebarAdminComponent
+        SidebarAdminComponent,
+        NavbarAdminComponent
     ],
   imports: [
     CommonModule,

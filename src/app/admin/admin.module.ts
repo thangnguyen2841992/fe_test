@@ -12,10 +12,14 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../../environments/environment.prod';
 import {AngularFireStorage} from '@angular/fire/storage';
 import { BookCreateComponent } from './book-create/book-create.component';
+import { TestCreateComponent } from './test-create/test-create.component';
+import { TestListComponent } from './test-list/test-list.component';
+import { TestEditComponent } from './test-edit/test-edit.component';
+import { TestDeleteComponent } from './test-delete/test-delete.component';
 
 
 @NgModule({
-  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent, BookCreateComponent],
+  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent, BookCreateComponent, TestCreateComponent, TestListComponent, TestEditComponent, TestDeleteComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

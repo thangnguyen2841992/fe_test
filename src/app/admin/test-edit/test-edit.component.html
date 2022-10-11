@@ -1,0 +1,30 @@
+<app-navbar-user id="app-navbar-customer"></app-navbar-user>
+
+<section class="section pt-5 pb-5 products-listing">
+
+  <div class="container">
+    <div class="row d-none-m">
+      <div class="col-md-12">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <app-sidebar-admin></app-sidebar-admin>
+      </div>
+      <div class="col-md-9">
+
+        <form [formGroup]="testForm" (submit)="editTest()">
+          <div class="form-group">
+            <label for="exampleFormControlInputSpell">Tên bài test</label>
+            <input type="text" class="form-control" id="exampleFormControlInputSpell" placeholder="Nhập tên bài test" formControlName="name">
+          </div>
+
+          <input type="submit" value="Thêm">
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+<app-footer></app-footer>
+
