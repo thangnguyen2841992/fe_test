@@ -6,6 +6,7 @@ import {BookCreateComponent} from './book-create/book-create.component';
 import {TestCreateComponent} from './test-create/test-create.component';
 import {TestListComponent} from './test-list/test-list.component';
 import {TestEditComponent} from './test-edit/test-edit.component';
+import {TestDetailsComponent} from './test-details/test-details.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'test/edit/:testId',
     component: TestEditComponent
+  },
+  {
+    path: 'test/details/:testId',
+    component: TestDetailsComponent
   }
 ];
 

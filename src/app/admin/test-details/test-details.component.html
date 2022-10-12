@@ -97,40 +97,12 @@
             </div>
           </div>
         </div>
-        <h5 class="header">Danh sách bài test</h5>
+        <h5 class="header">{{test.name}}</h5>
+        <button class="btn-primary" style="border-radius: 5px" data-toggle="modal"
+                data-target="#delete-test-modal">Thêm câu hỏi</button>
         <div class="row">
           <div class="col-md-4 col-sm-6 mb-4 pb-2">
-            <table class="table" id="vocabulary-table">
-              <thead>
-              <tr>
-                <th scope="col">Stt</th>
-                <th scope="col" id="hiragana">Tên</th>
-                <th scope="col" id="kanji">Thao tác</th>
-<!--                <th scope="col" id="vietnamChina">File nghe</th>-->
-<!--                <th scope="col" id="translation">Câu hỏi</th>-->
-<!--                <th scope="col" id="answer">Đáp án</th>-->
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let test of tests, index as i">
-                <td>{{i + 1}}</td>
-                <td><a routerLink="/admin/test/details/{{test.id}}" style="cursor: pointer">{{test.name}}</a></td>
-                <td>
-                  <a routerLink="/admin/test/edit/{{test.id}}" id="btnEdit" class="btn btn-warning">Sửa</a>
-                  <button id="btnDelete" style="margin-left: 20px" class="btn btn-danger" data-toggle="modal"
-                          data-target="#delete-test-modal" (click)="putToModalDeleteTest(test.id)"
-                          class="btn btn-sm btn-primary mr-2">Xoá</button>
-                </td>
-<!--                <td>{{excercise.caption}}</td>-->
-<!--                <td><audio controls>-->
-<!--                  <source src="{{excercise.audioFile}}" type="audio/ogg">-->
-<!--                </audio></td>-->
-<!--                <td *ngFor="let question of excercise.questions">-->
-<!--                  {{question.question}}</td>-->
-              </tr>
-              </tbody>
-            </table>
-
+                <h5></h5>
           </div>
           <!--          <div>-->
           <!--            <p style="float: left; margin-left: 110px; margin-top: 500px">Trang {{page}}</p>-->
@@ -166,14 +138,29 @@
 <div class="modal fade" id="delete-test-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa bài test này chứ?</h5>
-          <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa bài test này chứ?</h5>
+        <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="questionTestForm">
+        <div class="mb-3">
+          <label for="note" class="form-label">Bài số</label>
+          <input type="text" class="form-control" id="note" formControlName="note">
+          <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteTest()">Xóa</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        <div class="mb-3">
+          <label for="caption" class="form-label">Tên bài</label>
+          <input type="text" class="form-control" id="caption" formControlName="caption">
+          <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
         </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="createNewQuestionTest()">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
 
     </div>
   </div>
