@@ -98,11 +98,14 @@
           </div>
         </div>
         <h5 class="header">{{test.name}}</h5>
-        <button class="btn-primary" style="border-radius: 5px" data-toggle="modal"
+        <button class="btn btn-primary" style="border-radius: 5px" data-toggle="modal"
                 data-target="#delete-test-modal">Thêm câu hỏi</button>
         <div class="row">
-          <div class="col-md-4 col-sm-6 mb-4 pb-2">
-                <h5></h5>
+          <div class="col-md-6 col-sm-6 mb-4 pb-2" *ngFor="let question of questionTestList">
+              <h6 class="header"  >Bài {{question.note}}. {{question.caption}}</h6>
+            <button class="btn btn-primary" style="border-radius: 5px" data-toggle="modal"
+                    data-target="#create-question-test1-modal" (click)="getQuestionTest1Id(question.id)">Thêm nội dung</button>
+
           </div>
           <!--          <div>-->
           <!--            <p style="float: left; margin-left: 110px; margin-top: 500px">Trang {{page}}</p>-->
@@ -139,7 +142,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bạn chắc chắn muốn xóa bài test này chứ?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Thêm câu hỏi?</h5>
         <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
       </div>
       <div class="modal-body">
@@ -165,4 +168,55 @@
     </div>
   </div>
 </div>
+<div class="modal fade" id="create-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel1">Thêm nội dung của câu hỏi</h5>
+        <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="questionTest1From">
+          <div class="mb-3">
+            <label for="note" class="form-label">Câu hỏi</label>
+            <input type="text" class="form-control" id="note1" formControlName="caption">
+            <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">A</label>
+            <input type="text" class="form-control" id="caption1" formControlName="answer1">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">B</label>
+            <input type="text" class="form-control" id="caption2" formControlName="answer2">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">C</label>
+            <input type="text" class="form-control" id="caption3" formControlName="answer3">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">D</label>
+            <input type="text" class="form-control" id="caption4" formControlName="answer4">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">Đáp án đúng</label>
+            <input type="text" class="form-control" id="caption5" formControlName="correctAnswer">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="createNewQuestionTest1()">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
