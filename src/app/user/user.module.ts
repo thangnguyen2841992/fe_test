@@ -14,10 +14,11 @@ import { VocabularyListComponent } from './vocabulary-list/vocabulary-list.compo
 import { BookLessonBannerComponent } from './book-lesson-banner/book-lesson-banner.component';
 import { SearchByKey1Component } from './search-by-key1/search-by-key1.component';
 import { ExcerciseListComponent } from './excercise-list/excercise-list.component';
+import { TestDetailsComponent } from './test-details/test-details.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, SearchByKeyComponent, NavbarHomeComponent, VocabularyCardComponent, SidebarUserComponent, DisplayVocabularyComponent, VocabularyListComponent, BookLessonBannerComponent, SearchByKey1Component, ExcerciseListComponent],
+  declarations: [HomeComponent, SearchByKeyComponent, NavbarHomeComponent, VocabularyCardComponent, SidebarUserComponent, DisplayVocabularyComponent, VocabularyListComponent, BookLessonBannerComponent, SearchByKey1Component, ExcerciseListComponent, TestDetailsComponent],
     imports: [
         CommonModule,
         UserRoutingModule,

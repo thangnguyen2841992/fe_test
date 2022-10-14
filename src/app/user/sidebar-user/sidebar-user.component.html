@@ -34,6 +34,10 @@
           <h6 class="mb-0">
           </h6>
         </div>
+        <div i *ngFor="let test of tests" class="book-cat">
+          <div class="test-link">
+            <a routerLink="/home/test/{{test.id}}"  id="test-link">{{test.name}}</a>
+          </div>
       </div>
     </div>
   </div>

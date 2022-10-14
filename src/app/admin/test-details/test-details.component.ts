@@ -6,6 +6,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {QuestionTestService} from '../../service/question-test/question-test.service';
 import {NotificationService} from '../../service/notification/notification.service';
 import {QuestionTest} from '../../model/question-test';
+import {QuestionTest1Dto} from '../../model/question-test1-dto';
 
 @Component({
   selector: 'app-test-details',
@@ -16,6 +17,7 @@ export class TestDetailsComponent implements OnInit {
   testId: number;
   questionTestId: number;
   test: Test = {};
+  questionTest1DTOList: QuestionTest1Dto[] = [];
   questionTestForm: FormGroup = new FormGroup({
     note: new FormControl('', [Validators.required]),
     caption: new FormControl('', [Validators.required])
@@ -42,6 +44,7 @@ export class TestDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.getAllQuestionTestList();
+    this.getAllQuestionTest1();
   }
 
   findById(testId: number) {
@@ -58,6 +61,8 @@ export class TestDetailsComponent implements OnInit {
     };
     this.questionTestService.createNewQuestionTest(questionTest).subscribe((data) => {
       this.notificationService.showSuccessMessage('Thêm câu hỏi thành công');
+      this.questionTestForm.reset();
+      this.getAllQuestionTestList();
     });
   }
 
@@ -87,15 +92,24 @@ export class TestDetailsComponent implements OnInit {
       ],
       answer: this.questionTest1From.value.correctAnswer,
 
+      testId: this.testId,
+
       questionTestId: this.questionTestId
     };
     this.questionTestService.createNewQuestionTest1(question1Form).subscribe((data) => {
       this.notificationService.showSuccessMessage('Thêm nội dung câu hỏi thành công!');
       this.questionTest1From.reset();
+      this.getAllQuestionTest1();
     });
   }
 
   getQuestionTest1Id(id: number) {
     this.questionTestId = id;
+  }
+
+  getAllQuestionTest1() {
+    this.questionTestService.getAllQuestionTest1(this.testId).subscribe((data) => {
+      this.questionTest1DTOList = data;
+    });
   }
 }

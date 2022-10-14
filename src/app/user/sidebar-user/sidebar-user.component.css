@@ -8,3 +8,13 @@
 .lesson-link {
   cursor: pointer;
 }
+.test-link {
+  cursor: pointer;
+}
+.test-link:hover{
+  color: deeppink;
+}
+#test-link {
+  color: deepskyblue;
+  cursor: pointer;
+}

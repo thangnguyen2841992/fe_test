@@ -6,6 +6,7 @@ import {SearchByKeyComponent} from './search-by-key/search-by-key.component';
 import {VocabularyListComponent} from './vocabulary-list/vocabulary-list.component';
 import {SearchByKey1Component} from './search-by-key1/search-by-key1.component';
 import {ExcerciseListComponent} from './excercise-list/excercise-list.component';
+import {TestDetailsComponent} from './test-details/test-details.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'excercise/list/:bookId/:lessonId',
     component: ExcerciseListComponent
+  },
+  {
+    path: 'test/:testId',
+    component: TestDetailsComponent
   }
 ];
 

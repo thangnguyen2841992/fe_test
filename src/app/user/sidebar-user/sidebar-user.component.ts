@@ -4,6 +4,8 @@ import {BookService} from '../../service/book/book.service';
 import {LessonService} from '../../service/lesson/lesson.service';
 import {Lesson} from '../../model/lesson';
 import {Router} from '@angular/router';
+import {TestService} from '../../service/test/test.service';
+import {Test} from '../../model/test';
 
 @Component({
   selector: 'app-sidebar-user',
@@ -14,12 +16,15 @@ export class SidebarUserComponent implements OnInit {
   books: Book[];
   lessons: Lesson[];
   bookId: number;
+  tests: Test[] = [];
   constructor(private bookService: BookService,
               private lessonService: LessonService,
-              private router: Router) { }
+              private router: Router,
+              private testService: TestService) { }
 
   ngOnInit() {
     this.getAllBook();
+    this.getAllTest();
   }
   getAllBook() {
     this.bookService.getAllBook().subscribe((data) => {
@@ -46,5 +51,10 @@ export class SidebarUserComponent implements OnInit {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
+  }
+  getAllTest() {
+    this.testService.getAllTest().subscribe((data) => {
+      this.tests = data;
+    });
   }
 }
