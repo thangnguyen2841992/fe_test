@@ -5,6 +5,9 @@ import {ActivatedRoute, ParamMap} from '@angular/router';
 import {TestService} from '../../service/test/test.service';
 import {Test} from '../../model/test';
 import {QuestionTest} from '../../model/question-test';
+import {Form, FormArray, FormControl, FormGroup} from '@angular/forms';
+import {ListAnswer} from '../../model/list-answer';
+import {NotificationService} from '../../service/notification/notification.service';
 
 @Component({
   selector: 'app-test-details',
@@ -16,10 +19,14 @@ export class TestDetailsComponent implements OnInit {
   test: Test = {};
   testId: number;
   questionTestList: QuestionTest[] = [];
+  listAnswer: string[] = [];
+  count: number;
+  listAnswer1: ListAnswer;
 
   constructor(private questionTestService: QuestionTestService,
               private activeRouted: ActivatedRoute,
-              private testService: TestService
+              private testService: TestService,
+              private notificationService: NotificationService
   ) {
     this.activeRouted.paramMap.subscribe((paramMap: ParamMap) => {
       this.testId = +paramMap.get('testId');
@@ -43,9 +50,26 @@ export class TestDetailsComponent implements OnInit {
       this.questionTest1DTOList = data;
     });
   }
+
   getAllQuestionTestOfTest() {
     this.questionTestService.getAllQuestionTestOfTest(this.testId).subscribe((data) => {
       this.questionTestList = data;
     });
   }
+
+  getListAnswer(event) {
+    this.listAnswer.push('' + event.target.value);
+    console.log(this.listAnswer);
+  }
+
+  getCountCorrectAnswer() {
+    const listAnswerRequest =  {
+      listAnswer: this.listAnswer
+    };
+    this.questionTestService.getCountCorrectAnswer(this.testId, listAnswerRequest).subscribe((data) => {
+      this.count = data;
+      this.notificationService.showSuccessMessage('Bạn đã trả lời đúng ' + this.count + '/' + this.listAnswer.length + ' câu hỏi');
+    });
+  }
 }
+

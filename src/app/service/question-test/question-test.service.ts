@@ -24,4 +24,7 @@ export class QuestionTestService {
   getAllQuestionTest1(testId: number): Observable<QuestionTest1Dto[]> {
     return this.http.get<QuestionTest1Dto[]>(`${API_URL}/getAllQuestionTest1/test/${testId}`);
   }
+  getCountCorrectAnswer(testId: number, listAnswer): Observable<number> {
+    return this.http.post<number>(`${API_URL}/getCountCorrectAnswer/test/${testId}`, listAnswer);
+  }
 }

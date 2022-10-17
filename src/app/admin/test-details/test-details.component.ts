@@ -31,7 +31,7 @@ export class TestDetailsComponent implements OnInit {
     answer4: new FormControl('', [Validators.required]),
     correctAnswer: new FormControl('', [Validators.required])
   });
-
+  count: number;
   constructor(private activeRouted: ActivatedRoute,
               private testService: TestService,
               private questionTestService: QuestionTestService,
@@ -112,4 +112,5 @@ export class TestDetailsComponent implements OnInit {
       this.questionTest1DTOList = data;
     });
   }
+
 }

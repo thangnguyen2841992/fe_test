@@ -108,7 +108,7 @@
               <div *ngIf="questionTest1DTO.questionTest.id === question.id">
                   <h6>{{i+1}}) {{questionTest1DTO.question}}</h6>
               <div *ngFor="let answerQuestion1 of questionTest1DTO.answerQuestion1List, index as i">
-                  <p *ngIf="answerQuestion1.answer !== '';">{{answerQuestion1.note}}: {{answerQuestion1.answer}}</p>
+                  <p *ngIf="answerQuestion1.answer !== ''">{{answerQuestion1.note}}: {{answerQuestion1.answer}}</p>
               </div>
               <div>
                 <h6>Đáp án đúng {{questionTest1DTO.correctAnswer}}</h6>

@@ -108,18 +108,24 @@
                 <div *ngFor="let answerQuestion1 of questionTest1DTO.answerQuestion1List, index as i">
                   <h6 *ngIf="answerQuestion1.answer !== ''">{{answerQuestion1.note}}: {{answerQuestion1.answer}}</h6>
                 </div>
+                <div  class="form-check"  *ngFor="let answerQuestion1 of questionTest1DTO.answerQuestion1List" >
+                  <input class="form-check-input" value="{{answerQuestion1.note}}" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                  <label class="form-check-label" for="flexRadioDefault1"> {{answerQuestion1.answer}}
+                  </label>
+                </div>
                 <div>
                   <label>Nhập câu trả lời của bạn:  </label>
-                  <input type="text" size="1px">
+                  <input (change)="getListAnswer($event)" type="text" size="1px">
                 </div>
               </div>
             </div>
           </div>
           <br>
-          <div>
-            <button>Nộp bài</button>
-          </div>
+
       </div>
+        <div>
+          <button class="btn btn-primary" (click)="getCountCorrectAnswer()">Nộp bài</button>
+        </div>
     </div>
   </div>
   </div>
