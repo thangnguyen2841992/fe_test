@@ -16,6 +16,7 @@ import {QuestionTest1Dto} from '../../model/question-test1-dto';
 export class TestDetailsComponent implements OnInit {
   testId: number;
   questionTestId: number;
+  questionTest1Id: number;
   test: Test = {};
   questionTest1DTOList: QuestionTest1Dto[] = [];
   questionTestForm: FormGroup = new FormGroup({
@@ -31,7 +32,9 @@ export class TestDetailsComponent implements OnInit {
     answer4: new FormControl('', [Validators.required]),
     correctAnswer: new FormControl('', [Validators.required])
   });
+  questionTest1Form1: FormGroup;
   count: number;
+
   constructor(private activeRouted: ActivatedRoute,
               private testService: TestService,
               private questionTestService: QuestionTestService,
@@ -113,4 +116,20 @@ export class TestDetailsComponent implements OnInit {
     });
   }
 
+  findQuestionTest1DTOByQuestionTest1Id(id: number) {
+    this.questionTestService.findQuestionTest1DTOByQuestionTest1Id(id).subscribe((data) => {
+      // tslint:disable-next-line:prefer-for-of
+      for (let i = 0; i < data.answerQuestion1List.length; i++) {
+        this.questionTest1Form1 = new FormGroup({
+          caption: new FormControl(data.question, [Validators.required]),
+          answer1: new FormControl(data.answerQuestion1List[0], [Validators.required]),
+          answer2: new FormControl(data.answerQuestion1List[1], [Validators.required]),
+          answer3: new FormControl(data.answerQuestion1List[2], [Validators.required]),
+          answer4: new FormControl(data.answerQuestion1List[3], [Validators.required]),
+          correctAnswer: new FormControl(data.correctAnswer, [Validators.required])
+        });
+      }
+
+    });
+  }
 }
