@@ -5,5 +5,7 @@ export interface Lesson {
 
   name?: string;
 
+  fileVocabularyAudio?: string;
+
   book?: Book;
 }

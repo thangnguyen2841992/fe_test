@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {QuestionTestService} from '../../service/question-test/question-test.service';
 import {QuestionTest1Dto} from '../../model/question-test1-dto';
-import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {TestService} from '../../service/test/test.service';
 import {Test} from '../../model/test';
 import {QuestionTest} from '../../model/question-test';
@@ -21,12 +21,11 @@ export class TestDetailsComponent implements OnInit {
   questionTestList: QuestionTest[] = [];
   listAnswer: string[] = [];
   count: number;
-  listAnswer1: ListAnswer;
-
   constructor(private questionTestService: QuestionTestService,
               private activeRouted: ActivatedRoute,
               private testService: TestService,
-              private notificationService: NotificationService
+              private notificationService: NotificationService,
+              private router: Router
   ) {
     this.activeRouted.paramMap.subscribe((paramMap: ParamMap) => {
       this.testId = +paramMap.get('testId');
@@ -71,5 +70,6 @@ export class TestDetailsComponent implements OnInit {
       this.notificationService.showSuccessMessage('Bạn đã trả lời đúng ' + this.count + '/' + this.listAnswer.length + ' câu hỏi');
     });
   }
+
 }
 

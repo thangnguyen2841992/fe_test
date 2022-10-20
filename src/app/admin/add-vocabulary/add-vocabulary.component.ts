@@ -37,7 +37,12 @@ export class AddVocabularyComponent implements OnInit {
     vietnameseChinese: new FormControl('', [Validators.required]),
     translation: new FormControl('', [Validators.required]),
   });
-
+  get bookId1() {
+    return this.vocabularyForm.get('bookId');
+  }
+  get lessonId() {
+    return this.vocabularyForm.get('lessonId');
+  }
   constructor(private bookService: BookService,
               private lessonService: LessonService,
               private authService: AuthService,
@@ -49,6 +54,7 @@ export class AddVocabularyComponent implements OnInit {
 
   ngOnInit() {
     this.getAllBook();
+    this.getAllLessonOfBook();
   }
 
   getAllBook() {

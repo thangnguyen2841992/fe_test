@@ -17,10 +17,11 @@ import { TestListComponent } from './test-list/test-list.component';
 import { TestEditComponent } from './test-edit/test-edit.component';
 import { TestDeleteComponent } from './test-delete/test-delete.component';
 import { TestDetailsComponent } from './test-details/test-details.component';
+import { VocabularyAudioFileAddComponent } from './vocabulary-audio-file-add/vocabulary-audio-file-add.component';
 
 
 @NgModule({
-  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent, BookCreateComponent, TestCreateComponent, TestListComponent, TestEditComponent, TestDeleteComponent, TestDetailsComponent],
+  declarations: [AddVocabularyComponent, GrammarCreateComponent, ExcerciseCreateComponent, BookCreateComponent, TestCreateComponent, TestListComponent, TestEditComponent, TestDeleteComponent, TestDetailsComponent, VocabularyAudioFileAddComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

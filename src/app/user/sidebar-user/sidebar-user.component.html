@@ -19,12 +19,27 @@
           </div>
 
           <div  *ngFor="let lesson of lessons" class="div-link">
-            <p id="lesson-link" class="lesson-link" (click)="getAllVocabularyOfLessonOfBook(book.id, lesson.id)" *ngIf="lesson.book.id === book.id">{{lesson.name}}</p>
+            <p id="lesson-link" class="lesson-link" (click)="getAllVocabularyOfLessonOfBook(book.id, lesson.id)" *ngIf="lesson.book.id === book.id && showLesson">{{lesson.name}}</p>
           </div>
 
         </div>
 
       </div >
+      <div class="filters-card p-4">
+
+        <div class="filters-card-header">
+          <h6 class="mb-0">
+            Luyện nghe
+          </h6>
+          <h6 class="mb-0">
+          </h6>
+        </div>
+        <div i *ngFor="let test of tests" class="book-cat">
+          <div class="test-link">
+            <a routerLink="/home/test/{{test.id}}" (click)="reloadComponentTest(test.id)"  id="test-link">{{test.name}}</a>
+          </div>
+        </div>
+      </div>
       <div class="filters-card p-4">
 
         <div class="filters-card-header">
@@ -36,9 +51,10 @@
         </div>
         <div i *ngFor="let test of tests" class="book-cat">
           <div class="test-link">
-            <a routerLink="/home/test/{{test.id}}"  id="test-link">{{test.name}}</a>
+            <a routerLink="/home/test/{{test.id}}" (click)="reloadComponentTest(test.id)"  id="test-link">{{test.name}}</a>
           </div>
       </div>
     </div>
   </div>
+</div>
 </div>

@@ -28,6 +28,21 @@ export class QuestionTestService {
     return this.http.post<number>(`${API_URL}/getCountCorrectAnswer/test/${testId}`, listAnswer);
   }
   findQuestionTest1DTOByQuestionTest1Id(questionTest1Id: number): Observable<QuestionTest1Dto> {
-    return this.http.get<QuestionTest1Dto>(`${API_URL}/findQuestionTest1DTOByQuestionTest1Id/${questionTest1Id}`);
+    return this.http.get<QuestionTest1Dto>(`${API_URL}/findQuestionTest1DTOByQuestionTest1Id/questionTest1/${questionTest1Id}`);
+  }
+  deleteQuestionTest1(questionTest1Id: number) {
+    return this.http.delete(`${API_URL}/deleteQuestionTest1/questionTest1/${questionTest1Id}`);
+  }
+  findQuestionTest(questionTestId: number): Observable<QuestionTest> {
+    return this.http.get<QuestionTest>(`${API_URL}/findQuestionTest/questionTest/${questionTestId}`);
+  }
+  editQuestionTest(questionTestId: number, questionTestForm): Observable<QuestionTest> {
+    return this.http.put(`${API_URL}/editQuestionTest/questionTest/${questionTestId}`, questionTestForm);
+  }
+  editQuestionTest1(questionTest1Id: number, questionTest1Form): Observable<any> {
+    return this.http.put<any>(`${API_URL}/editQuestionTest1/questionTest1/${questionTest1Id}`, questionTest1Form);
+  }
+  deleteQuestionTest(questionTestId: number) {
+    return this.http.delete(`${API_URL}/deleteQuestionTest/questionTest/${questionTestId}`);
   }
 }

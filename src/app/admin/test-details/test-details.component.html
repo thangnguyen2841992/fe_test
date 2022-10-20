@@ -99,24 +99,39 @@
         </div>
         <h5 class="header">{{test.name}}</h5>
         <button class="btn btn-primary" style="border-radius: 5px" data-toggle="modal"
-                data-target="#delete-test-modal">Thêm câu hỏi</button>
+                data-target="#delete-test-modal">Thêm câu hỏi
+        </button>
+        <a style="margin-left: 10px" routerLink="/admin/test/list" class="btn btn-info">Danh sách</a>
         <div class="row">
           <div class="col-md-8 col-sm-8 mb-4 pb-2" *ngFor="let question of questionTestList, index as i">
-              <h6 class="header"  >Bài {{question.note}}. {{question.caption}}</h6>
-            <button class="btn btn-primary" style="border-radius: 5px" data-toggle="modal" data-target="#create-question-test1-modal" (click)="getQuestionTest1Id(question.id)">Thêm nội dung</button>
+            <button style="float: right" class="btn btn-warning" data-toggle="modal"
+                    data-target="#edit-question-test-modal" (click)="findQuestionTest(question.id)"><i class="fa-solid fa-pen-to-square"></i>
+            </button>
+            <button style="float: right; margin-right: 10px" class="btn btn-danger" data-toggle="modal" (click)="findQuestionTest(question.id)"
+                    data-target="#delete-question-test-modal"><i class="fa-solid fa-trash"></i></button>
+            <h6 class="header">Bài {{question.note}}. {{question.caption}}</h6>
+
+            <button class="btn btn-primary" style="border-radius: 5px" data-toggle="modal"
+                    data-target="#create-question-test1-modal" (click)="getQuestionTest1Id(question.id)">Thêm nội dung
+            </button>
             <div *ngFor="let questionTest1DTO of questionTest1DTOList, index as i">
 
               <div *ngIf="questionTest1DTO.questionTest.id === question.id">
-                <button style="float: right" class="btn btn-warning" data-toggle="modal" data-target="#edit-question-test1-modal" (click)="findQuestionTest1DTOByQuestionTest1Id(questionTest1DTO.questionTest1Id)" >Sửa</button>
-                <button style="float: right; margin-right: 10px" class="btn btn-danger">Xóa</button>
-                  <h6>{{i+1}}) {{questionTest1DTO.question}}</h6>
-              <div *ngFor="let answerQuestion1 of questionTest1DTO.answerQuestion1List, index as i">
-                  <p *ngIf="answerQuestion1.answer !== '' && answerQuestion1.answer != null">{{answerQuestion1.note}}: {{answerQuestion1.answer}}</p>
+                <button style="float: right" class="btn btn-warning" data-toggle="modal"
+                        data-target="#edit-question-test1-modal"
+                        (click)="findQuestionTest1DTOByQuestionTest1Id(questionTest1DTO.questionTest1Id)"><i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button style="float: right; margin-right: 10px" class="btn btn-danger" data-toggle="modal"
+                        data-target="#delete-question-test1-modal" (click)="getAllQuestionTest1IdReal(questionTest1DTO.questionTest1Id)"><i class="fa-solid fa-trash"></i></button>
+                <h6>{{i + 1}}) {{questionTest1DTO.question}}</h6>
+                <div *ngFor="let answerQuestion1 of questionTest1DTO.answerQuestion1List, index as i">
+                  <p *ngIf="answerQuestion1.answer !== '' && answerQuestion1.answer != null">{{answerQuestion1.note}}
+                    : {{answerQuestion1.answer}}</p>
+                </div>
+                <div>
+                  <h6>Đáp án đúng {{questionTest1DTO.correctAnswer}}</h6>
+                </div>
               </div>
-              <div>
-                <h6>Đáp án đúng {{questionTest1DTO.correctAnswer}}</h6>
-              </div>
-            </div>
             </div>
           </div>
           <!--          <div>-->
@@ -159,28 +174,30 @@
       </div>
       <div class="modal-body">
         <form [formGroup]="questionTestForm">
-        <div class="mb-3">
-          <label for="note" class="form-label">Bài số</label>
-          <input type="text" class="form-control" id="note" formControlName="note">
-          <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
-        </div>
-        <div class="mb-3">
-          <label for="caption" class="form-label">Tên bài</label>
-          <input type="text" class="form-control" id="caption" formControlName="caption">
-          <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
-        </div>
+          <div class="mb-3">
+            <label for="note" class="form-label">Bài số</label>
+            <input type="text" class="form-control" id="note" formControlName="note">
+            <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
+          </div>
+          <div class="mb-3">
+            <label for="caption" class="form-label">Tên bài</label>
+            <input type="text" class="form-control" id="caption" formControlName="caption">
+            <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
+          </div>
         </form>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewQuestionTest()">Tạo mới</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewQuestionTest()">Tạo mới
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
 
     </div>
   </div>
 </div>
-<div class="modal fade" id="create-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="create-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -223,14 +240,16 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewQuestionTest1()">Tạo mới</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewQuestionTest1()">Tạo mới
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
 
     </div>
   </div>
 </div>
-<div class="modal fade" id="edit-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="edit-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -238,42 +257,66 @@
         <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
       </div>
       <div class="modal-body">
-        <form [formGroup]="questionTest1Form1">
+        <form [formGroup]="questionTest1FormEdit">
           <div class="mb-3">
-            <label for="note2" class="form-label">Câu hỏi</label>
-            <input type="textarea" class="form-control" id="note2" formControlName="caption">
+            <label for="note" class="form-label">Câu hỏi</label>
+            <input type="textarea" class="form-control" formControlName="caption">
             <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
           </div>
           <div class="mb-3">
-            <label for="answer1" class="form-label">A</label>
-            <input type="text" class="form-control" id="answer1"   formControlName="answer1">
+            <label for="caption" class="form-label">A</label>
+            <input type="text" class="form-control"  formControlName="answer1">
             <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
           </div>
           <div class="mb-3">
-            <label for="answer2" class="form-label">B</label>
-            <input type="text" class="form-control" id="answer2"  formControlName="answer2">
+            <label for="caption" class="form-label">B</label>
+            <input type="text" class="form-control" formControlName="answer2">
             <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
           </div>
           <div class="mb-3">
-            <label for="answer3" class="form-label">C</label>
-            <input type="text" class="form-control" id="answer3"  formControlName="answer3">
+            <label for="caption" class="form-label">C</label>
+            <input type="text" class="form-control"  formControlName="answer3">
             <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
           </div>
           <div class="mb-3">
-            <label for="answer4" class="form-label">D</label>
-            <input type="text" class="form-control" id="answer4" formControlName="answer4">
+            <label for="caption" class="form-label">D</label>
+            <input type="text" class="form-control" formControlName="answer4">
             <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
           </div>
           <div class="mb-3">
-            <label for="correctAnswer" class="form-label">Đáp án đúng</label>
-            <input type="text" class="form-control" id="correctAnswer" formControlName="correctAnswer">
+            <label for="caption" class="form-label">Đáp án đúng</label>
+            <input type="text" class="form-control"  formControlName="correctAnswer">
             <!--            <p class="validate" [hidden]="phone.valid || !phone.touched">Định dạng số điện thoại không đúng</p>-->
           </div>
         </form>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="createNewQuestionTest1()">Tạo mới</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="editQuestionTest1()">Sửa
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="delete-question-test1-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel3">Xoá câu hỏi</h5>
+        <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label  class="form-label">Bạn chắc chắn muốn xoá câu hỏi này chứ?</label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteQuestion1()">Xoá
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
 
@@ -282,4 +325,60 @@
 </div>
 
 
+<div class="modal fade" id="edit-question-test-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel4">Chỉnh sửa nội dung của câu hỏi</h5>
+        <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="questionTestFormEdit">
+        <div class="mb-3">
+          <label  class="form-label">Bài</label>
+          <input type="textarea" class="form-control"  formControlName="note">
+          <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
+        </div>
+        <div class="mb-3">
+          <label  class="form-label">Tiêu đề</label>
+          <input type="textarea" class="form-control"  formControlName="caption">
+          <!--            <p class="validate" [hidden]="fullName.valid || !fullName.touched">Nhập Họ và tên</p>-->
+        </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="editQuestionTest()">Sửa
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-question-test-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel5">Xoá câu hỏi</h5>
+        <span type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</span>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label  class="form-label">Bạn chắc chắn muốn xoá câu hỏi này chứ?</label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteQuestion()">Xoá
+        </button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+
+    </div>
+  </div>
+</div>
 

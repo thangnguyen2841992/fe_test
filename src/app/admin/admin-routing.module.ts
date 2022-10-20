@@ -7,6 +7,7 @@ import {TestCreateComponent} from './test-create/test-create.component';
 import {TestListComponent} from './test-list/test-list.component';
 import {TestEditComponent} from './test-edit/test-edit.component';
 import {TestDetailsComponent} from './test-details/test-details.component';
+import {VocabularyAudioFileAddComponent} from './vocabulary-audio-file-add/vocabulary-audio-file-add.component';
 
 
 const routes: Routes = [
@@ -37,6 +38,10 @@ const routes: Routes = [
   {
     path: 'test/details/:testId',
     component: TestDetailsComponent
+  },
+  {
+    path: 'vocabularyAudioFile/add',
+    component: VocabularyAudioFileAddComponent
   }
 ];
 

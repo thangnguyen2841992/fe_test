@@ -17,9 +17,14 @@ export class TestDetailsComponent implements OnInit {
   testId: number;
   questionTestId: number;
   questionTest1Id: number;
+  questionTestDTO: QuestionTest1Dto = {};
   test: Test = {};
   questionTest1DTOList: QuestionTest1Dto[] = [];
   questionTestForm: FormGroup = new FormGroup({
+    note: new FormControl('', [Validators.required]),
+    caption: new FormControl('', [Validators.required])
+  });
+  questionTestFormEdit: FormGroup = new FormGroup({
     note: new FormControl('', [Validators.required]),
     caption: new FormControl('', [Validators.required])
   });
@@ -32,7 +37,14 @@ export class TestDetailsComponent implements OnInit {
     answer4: new FormControl('', [Validators.required]),
     correctAnswer: new FormControl('', [Validators.required])
   });
-  questionTest1Form1: FormGroup;
+  questionTest1FormEdit: FormGroup = new FormGroup({
+    caption: new FormControl('', [Validators.required]),
+    answer1: new FormControl('', [Validators.required]),
+    answer2: new FormControl('', [Validators.required]),
+    answer3: new FormControl('', [Validators.required]),
+    answer4: new FormControl('', [Validators.required]),
+    correctAnswer: new FormControl('', [Validators.required])
+  });
   count: number;
 
   constructor(private activeRouted: ActivatedRoute,
@@ -110,6 +122,11 @@ export class TestDetailsComponent implements OnInit {
     this.questionTestId = id;
   }
 
+  getAllQuestionTest1IdReal(id: number) {
+    this.questionTest1Id = id;
+    console.log(this.questionTest1Id);
+  }
+
   getAllQuestionTest1() {
     this.questionTestService.getAllQuestionTest1(this.testId).subscribe((data) => {
       this.questionTest1DTOList = data;
@@ -117,19 +134,81 @@ export class TestDetailsComponent implements OnInit {
   }
 
   findQuestionTest1DTOByQuestionTest1Id(id: number) {
+    this.questionTest1Id = id;
     this.questionTestService.findQuestionTest1DTOByQuestionTest1Id(id).subscribe((data) => {
+      const answerList = data.answerQuestion1List;
       // tslint:disable-next-line:prefer-for-of
-      for (let i = 0; i < data.answerQuestion1List.length; i++) {
-        this.questionTest1Form1 = new FormGroup({
-          caption: new FormControl(data.question, [Validators.required]),
-          answer1: new FormControl(data.answerQuestion1List[0], [Validators.required]),
-          answer2: new FormControl(data.answerQuestion1List[1], [Validators.required]),
-          answer3: new FormControl(data.answerQuestion1List[2], [Validators.required]),
-          answer4: new FormControl(data.answerQuestion1List[3], [Validators.required]),
-          correctAnswer: new FormControl(data.correctAnswer, [Validators.required])
+      for (let i = 0; i < answerList.length; i++) {
+        this.questionTest1FormEdit.patchValue({
+          caption: data.question,
+          answer1: answerList[0].answer,
+          answer2: answerList[1].answer,
+          answer3: answerList[2].answer,
+          answer4: answerList[3].answer,
+          correctAnswer: data.correctAnswer
         });
       }
+    });
+  }
 
+  deleteQuestion1() {
+    this.questionTestService.deleteQuestionTest1(this.questionTest1Id).subscribe(() => {
+      this.notificationService.showSuccessMessage('Xoá câu hỏi thành công!');
+      this.getAllQuestionTestList();
+      this.getAllQuestionTest1();
+    });
+  }
+
+  findQuestionTest(questionTestId: number) {
+    this.questionTestService.findQuestionTest(questionTestId).subscribe((data) => {
+      this.questionTestId = questionTestId;
+      this.questionTestFormEdit.patchValue({
+        note: data.note,
+        caption: data.caption
+      });
+    });
+  }
+
+  editQuestionTest() {
+    this.questionTestService.editQuestionTest(this.questionTestId, this.questionTestFormEdit.value).subscribe((data) => {
+      this.notificationService.showSuccessMessage('Cập nhật câu hỏi thành công!');
+      this.getAllQuestionTestList();
+      this.getAllQuestionTest1();
+    });
+  }
+
+  editQuestionTest1() {
+    const question1Form = {
+      caption: this.questionTest1FormEdit.value.caption,
+      answerQuestion1s: [
+        {
+          answer: this.questionTest1FormEdit.value.answer1
+        }
+        ,
+        {
+          answer: this.questionTest1FormEdit.value.answer2
+        },
+        {
+          answer: this.questionTest1FormEdit.value.answer3
+        },
+        {
+          answer: this.questionTest1FormEdit.value.answer4
+        }
+      ],
+      answer: this.questionTest1FormEdit.value.correctAnswer,
+    };
+    this.questionTestService.editQuestionTest1(this.questionTest1Id, question1Form).subscribe((data) => {
+      this.notificationService.showSuccessMessage('Cập nhật nội dung câu hỏi thành công!');
+      this.getAllQuestionTestList();
+      this.getAllQuestionTest1();
+    });
+  }
+
+  deleteQuestion() {
+    this.questionTestService.deleteQuestionTest(this.questionTestId).subscribe((data) => {
+      this.notificationService.showSuccessMessage('Xoá câu hỏi thành công');
+      this.getAllQuestionTestList();
+      this.getAllQuestionTest1();
     });
   }
 }

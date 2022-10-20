@@ -21,4 +21,7 @@ export class LessonService {
   getLessonByLessonId(lessonId: number): Observable<Lesson> {
     return this.http.get<Lesson>(`${API_URL}/lessons/lesson/${lessonId}`);
   }
+  addVocabularyFileAudio(lessonId: number, vocabularyAudioFileForm): Observable<Lesson> {
+    return this.http.put<Lesson>(`${API_URL}/lessons/addVocabularyFileAudio/lesson/${lessonId}`, vocabularyAudioFileForm);
+  }
 }

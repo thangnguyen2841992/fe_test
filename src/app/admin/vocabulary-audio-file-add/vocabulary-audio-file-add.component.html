@@ -1,0 +1,44 @@
+<app-navbar-user id="app-navbar-customer"></app-navbar-user>
+
+<section class="section pt-5 pb-5 products-listing">
+
+  <div class="container">
+    <div class="row d-none-m">
+      <div class="col-md-12">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <app-sidebar-admin></app-sidebar-admin>
+      </div>
+
+      <div class="col-md-9">
+        <h5>Thêm file nghe từ vựng</h5>
+        <br>
+        <form [formGroup]="vocabularyForm" (ngSubmit)="updateAudioFile()">
+
+
+        <div class="form-group" >
+          <label for="exampleFormControlSelectBook">Sách</label>
+
+          <select class="form-control" id="exampleFormControlSelectBook" formControlName="bookId" (change)="getBookId($event)" >
+            <option *ngFor="let book of books" value="{{book.id}}" >{{book.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlSelectLesson" >Bài</label>
+          <select class="form-control" id="exampleFormControlSelectLesson" formControlName="lessonId">
+            <option *ngFor="let lesson of lessons" value="{{lesson.id}}" >{{lesson.name}}</option>
+          </select>
+        </div>
+          <div class="form-group">
+            <label for="exampleFormControlInputAudio">File nghe</label>
+            <input type="file" class="form-control" id="exampleFormControlInputAudio" placeholder="Nhập file nghe" formControlName="audioFile" (change)="changeFile($event)">
+          </div>
+          <input type="submit" value="Thêm">
+        </form>
+    </div>
+  </div>
+  </div>
+</section>
+<app-footer></app-footer>
