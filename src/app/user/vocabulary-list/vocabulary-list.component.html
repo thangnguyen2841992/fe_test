@@ -105,6 +105,12 @@
         style="color: deepskyblue; cursor: pointer"> Bài tập</h5></a></span>
         <div class="row">
           <div class="col-md-4 col-sm-6 mb-4 pb-2">
+            <button class="btn btn-info" (click)="getLessonById()">File nghe từ vựng</button>
+            <audio controls autoplay>
+              <source src="{{lesson.fileVocabularyAudio}}" type="audio/mpeg">
+              <source src="{{lesson.fileVocabularyAudio}}" type="audio/ogg">
+
+            </audio>
             <table class="table" id="vocabulary-table">
               <thead>
               <tr>
@@ -128,8 +134,8 @@
 
           </div>
           <div>
-            <p style="float: left; margin-left: 110px; margin-top: 500px">Trang {{page}}</p>
-            <p style="float: left; margin-left: 10px; margin-top: 500px">/ {{totalPage}}</p>
+            <p style="float: left; margin-left: 110px; margin-top: 580px">Trang {{page}}</p>
+            <p style="float: left; margin-left: 10px; margin-top: 580px">/ {{totalPage}}</p>
           </div>
           <div class="col-md-12 text-center load-more">
 

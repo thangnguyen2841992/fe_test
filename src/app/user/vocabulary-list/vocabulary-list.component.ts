@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {VocabularyDto} from '../../model/vocabulary-dto';
 import {VocabularyService} from '../../service/vocabulary/vocabulary.service';
 import {ActivatedRoute, ParamMap} from '@angular/router';
+import {LessonService} from '../../service/lesson/lesson.service';
+import {Lesson} from '../../model/lesson';
 
 @Component({
   selector: 'app-vocabulary-list',
@@ -17,9 +19,11 @@ export class VocabularyListComponent implements OnInit {
   size = 0;
   page = 1;
   totalPage = 0;
+  lesson: Lesson = {};
 
   constructor(private vocabularyService: VocabularyService,
-              private activeRouter: ActivatedRoute) {
+              private activeRouter: ActivatedRoute,
+              private lessonService: LessonService) {
     this.activeRouter.paramMap.subscribe((paramMap: ParamMap) => {
       this.bookId = +paramMap.get('bookId');
       this.lessonId = +paramMap.get('lessonId');
@@ -27,6 +31,7 @@ export class VocabularyListComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getLessonById();
     this.getAllVocabularyOfLessonOfBook();
     this.getAllVocabularyOfbook();
   }
@@ -39,11 +44,11 @@ export class VocabularyListComponent implements OnInit {
 
   getAllVocabularyOfbook() {
     this.vocabularyService.getAllVocabularyOfLessonOfBook1(this.bookId, this.lessonId).subscribe((data) => {
-      if (data.length % 10 == 0) {
+      if (data.length % 10 === 0) {
         this.size = data.length / 10 - 10;
         this.totalPage = (data.length / 10 - 10) / 10 + 1;
       }
-      if (data.length % 10 != 0) {
+      if (data.length % 10 !== 0) {
         this.size = (data.length - (data.length % 10));
         this.totalPage = (data.length - (data.length % 10)) / 10 + 1;
       }
@@ -77,5 +82,10 @@ export class VocabularyListComponent implements OnInit {
     this.offset = this.size;
     this.page = (this.size) / 10 + 1;
     this.getAllVocabularyOfLessonOfBook();
+  }
+  getLessonById() {
+    this.lessonService.getLessonByLessonId(this.lessonId).subscribe((data) => {
+      this.lesson = data;
+    });
   }
 }

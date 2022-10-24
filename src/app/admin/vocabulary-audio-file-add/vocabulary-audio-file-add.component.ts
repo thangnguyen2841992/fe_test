@@ -32,10 +32,10 @@ export class VocabularyAudioFileAddComponent implements OnInit {
   vocabularyForm: FormGroup = new FormGroup({
     bookId: new FormControl(this.bookDefault.id, [Validators.required]),
     lessonId: new FormControl(this.lessonDefault.id, [Validators.required]),
-
-    audioFile: new FormControl('')
+    audioFile: new FormControl('', [Validators.required])
   });
   audioFile: any;
+  audiolink: string;
 
   constructor(private activeRouted: ActivatedRoute,
               private bookService: BookService,
@@ -62,9 +62,8 @@ export class VocabularyAudioFileAddComponent implements OnInit {
   }
 
   changeFile(event) {
-    this.vocabularyForm.patchValue({
-      audioFile: event.target.files[0]
-    });
+    this.audioFile = event.target.files[0];
+    console.log(this.audioFile);
   }
 
 
@@ -72,16 +71,16 @@ export class VocabularyAudioFileAddComponent implements OnInit {
     this.bookId = event.target.value;
     this.getAllLessonOfBook(this.bookId);
   }
-
   updateAudioFile() {
-    const audioFile = this.getCurrentDateTime() + this.vocabularyForm.get('audioFile');
-    const fileRef = this.storage.ref(audioFile);
-    this.storage.upload(audioFile, this.vocabularyForm.get('audioFile')).snapshotChanges().pipe(
+    const audioFileName = this.getCurrentDateTime() + this.audioFile;
+    const fileRef = this.storage.ref(audioFileName);
+    this.storage.upload(audioFileName, this.audioFile).snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
-          this.audioFile = url;
+          this.audiolink = url;
+          console.log(url);
           const vocabularyAudioFileForm = {
-            audioFile: this.audioFile,
+            audioFile: this.audiolink,
           };
           this.lessonService.addVocabularyFileAudio(this.vocabularyForm.value.lessonId, vocabularyAudioFileForm).subscribe(() => {
             this.notificationService.showSuccessMessage('Thêm file nghe từ vựng thành công!');
@@ -90,6 +89,7 @@ export class VocabularyAudioFileAddComponent implements OnInit {
       })
     ).subscribe();
   }
+
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
